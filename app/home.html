@@ -1,0 +1,670 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TBS/Softworks Middleware - Management Console</title>
+
+    <style>
+    ::-webkit-scrollbar {
+       width: 5px;
+   }
+
+   ::-webkit-scrollbar-track {
+       background-color: #fff;
+   }
+
+   ::-webkit-scrollbar-thumb {
+       background-color:#263238;
+   }
+    ::-moz-selection { background: #26a69a; color: #fff; }
+    ::selection { background: #26a69a; color: #fff; }
+
+  </style>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- endbuild -->
+
+    <link href="bower_components/Materialize/dist/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="bower_components/chartist/dist/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="styles/animate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" />
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!--[if lt IE 10]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="loading blue-grey darken-4">
+        <br>
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page hide">
+        <header>
+            <nav class="blue-grey darken-4">
+                <div class="nav-wrapper">
+                    <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
+                        <i class="mdi-navigation-menu"></i>
+                    </a>
+                    <ul class="left">
+                        <li>
+                            <a href="#modal2" class="tooltipped modal-trigger" data-position="right" data-delay="50" data-tooltip="Restart Service">
+                                <i class="material-icons">replay</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#CSVFiles" class="tooltipped modal-trigger" data-position="right" data-delay="50" data-tooltip="View CSV Files">
+                                <i class="material-icons">receipt</i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="right">
+                      <li>
+                        <a href="#" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Logout" onclick="logoutDialog();">
+                          <i class="material-icons">exit_to_app</i>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="breadcrumb grey lighten-3">
+                <h6>
+                    Dashboard
+                </h6>
+            </div>
+            <div class="row fadeIn animated">
+                <div class="col s12 m12 l6">
+                    <ul id="projects-collection" class="collection">
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle blue-grey darken-4">clear_all</i>
+                            <span class="collection-header">Collection Status</span>
+                            <p>
+                                Last collected at: <span class="pollTime blue-grey-text">{{lastPollTime}}</span>
+                            </p>
+                            <a onClick="Materialize.toast('Force polling the clocks', 4000);refreshStatus();" href="#" class="secondary-content tooltipped" data-position="left" data-delay="50" data-tooltip="Force Poll Clocks">
+                                <i class="material-icons grey-text">refresh</i>
+                            </a>
+                        </li>
+                        <li class="collection-item hidden statusBar">
+                            <small>Forcing Collection</small>
+                            <div class="progress grey lighten-3">
+                                <div class="indeterminate grey"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 m12 l6">
+                    <ul id="projects-collection" class="collection">
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle blue-grey darken-4">insert_chart</i>
+                            <span class="collection-header">Current Increment value</span>
+                            <p>
+                                <span class="blue-grey-text darken-text-4 incFile">{{currentIncrementValue}}</span>
+                            </p>
+                            <a onClick="Materialize.toast('Updating increment value', 4000);refreshValue();" href="#" class="secondary-content tooltipped" data-position="left" data-delay="50" data-tooltip="Refresh Increment Value">
+                                <i class="material-icons grey-text">refresh</i>
+                            </a>
+                        </li>
+                        <li class="collection-item hidden incrementStatus">
+                            <small>Reading File</small>
+                            <div class="progress grey lighten-3">
+                                <div class="indeterminate grey"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <center>
+            {{#if configChanged}}
+            <div class="row message">
+                <div class="col s12">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">WARNING: Configuration Changes Made</span>
+                            <p>Configuration changes have been made, please restart the service in order for changes to take effect.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#" onclick="Materialize.toast('This doesn\'t work for some reason at the moment, just acknowledge and re-save! ', 4000);">Revert Changes</a>
+                                <a href="#" onclick="acknowledge();">Acknowledge</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            <main>
+                <div class="card-panel hoverable fadeIn animated">
+                        <div class="row">
+                            <form class="col s12" id="configForm" action="/">
+                                <div class="row"><div class="col s12"><h5><u>General Settings</u></h5></div></div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input id="csvdir" type="text" class="validate" value="{{configData.csvdir}}" onclick="showHelp('csvdir');" onblur="hideHelp('csvdir');">
+                                        <label for="csvdir">CSV Directory</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="pollRate" type="text" class="validate" value="{{configData.pollRate}}" onclick="showHelp('pollRate');" onblur="hideHelp('pollRate');">
+                                        <label for="pollRate">Polling Rate (ms)</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="dateTimeFormat" type="text" class="validate" value="{{configData.dateTimeFormat}}" onclick="showHelp('dateTimeFormat');" onblur="hideHelp('dateTimeFormat');">
+                                        <label for="dateTimeFormat">Date/Time Format</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="locale" type="text" class="validate" value="{{configData.locale}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="locale">Locale</label>
+                                    </div>
+                                    <div class="input-field col s3 hidden">
+                                        <input id="incrementTXT" type="text" class="validate" value="{{configData.incrementTXT}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="incrementTXT">Increment Text File</label>
+                                    </div>
+                                </div>
+                                <div class="row"><div class="col s12"><h5><u>Database Settings</u></h5></div></div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input id="dbConfig.server" type="text" class="validate" value="{{configData.dbConfig.server}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="dbConfig.server">Server Name</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="dbConfig.userName" type="text" class="validate" value="{{configData.dbConfig.userName}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="dbConfig.userName">Userame</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="dbConfig.password" type="password" class="validate" value="{{configData.dbConfig.password}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="dbConfig.password">Password</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="dbConfig.options.database" type="text" class="validate" value="{{configData.dbConfig.options.database}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="dbConfig.options.database">Database</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="dbConfig.options.port" type="text" class="validate" value="{{configData.dbConfig.options.port}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="dbConfig.options.port">Server Port</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="TNADB.TNARecordsTable" type="text" class="validate" value="{{configData.TNADB.TNARecordsTable}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="TNADB.TNARecordsTable">TNA Records Table</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="TNADB.TNAAuthColumn" type="text" class="validate" value="{{configData.TNADB.TNAAuthColumn}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="TNADB.TNAAuthColumn">TNA Authorization Column</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="TNADB.SuccessCode" type="text" class="validate" value="{{configData.TNADB.SuccessCode}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="TNADB.SuccessCode">TNA Success Code</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="TNADB.IDColumn" type="text" class="validate" value="{{configData.TNADB.IDColumn}}" onclick="showHelp('TNADB.IDColumn');">
+                                        <label for="TNADB.IDColumn">TNA User ID Column</label>
+                                    </div>
+                                </div>
+                                <button data-target="modal1" class="waves-effect waves-light btn modal-trigger"><i class="material-icons right">cloud</i>Save Settings</button>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+            </center>
+        </div>
+        <div class="row">
+            <div class="csvdir_help hidden">
+                <div class="card blue-grey lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Help Information</span>
+                        <p>The 'CSV Directory' field is used to set the location as to where the clocking transcript files will be stored. Please use slashes as oppose to backslashes. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pollRate_help hidden">
+                <div class="card blue-grey lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Help Information</span>
+                        <p>The 'Polling Rate' field is used to set how often the clocks will be polled to retrieve clocking data in milliseconds, the default for this is: 3600000 (1 hour) see <a href="https://www.google.co.uk/search?q=millisecond+calculator" target="_blank">here</a> on converting time to milliseconds </p>
+                    </div>
+                </div>
+            </div>
+            <div class="dateTimeFormat_help hidden">
+                <div class="card blue-grey lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Help Information</span>
+                        <p>The 'Date/Time Format' field is used to set the format of the time shown on the transcript file (trans_xxxxxxxxxxxx.txt) the syntax for this field can be found: <a href="#modal3" class="modal-trigger">here</a>, the default for this field is: DDMMYYYYHHmm which produces an output such as the following: <span class="currentTime"></span> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="CSVFiles" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Current CSV files in the output directory</h4>
+                <table class="bordered centered highlight">
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each files}}
+                        <tr onclick="viewContents('{{this}}');" class="modal-action modal-close">
+                            <td style="cursor:default">{{this}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Confirmation</h4>
+                <p>Are you sure you wish to save these settings?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+                <a href="/" onclick="saveConfigForm();" class=" modal-action modal-close waves-effect waves-green btn-flat">Save Changes</a>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Confirmation</h4>
+                <p>Are you sure you wish to restart the service?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+                <a href="#" onclick="Materialize.toast('Restarting the service, this could take 1-2 minutes.', 4000);restartService();" class=" modal-action modal-close waves-effect waves-green btn-flat">Restart Service</a>
+            </div>
+        </div>
+
+        <div id="logoutDialog" class="modal">
+            <div class="modal-content">
+                <h4>Confirmation</h4>
+                <p>Are you sure you wish to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+                <a href="#" onclick="performLogout();" class="modal-action modal-close waves-effect waves-green btn-flat">Logout</a>
+            </div>
+        </div>
+
+        <div id="fileContents" class="modal">
+            <div class="modal-content">
+                <h4>Viewing: <span class="view_filename"></span></h4>
+                <table class="centered highlight">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Clock ID</th>
+                            <th style="width: 20%;">User ID</th>
+                            <th style="width: 20%;">Time</th>
+                            <th style="width: 20%;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="csvContents">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
+            </div>
+        </div>
+
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <h4>Date/Time Syntax</h4>
+                <table class="highlight centered bordered">
+                  <tbody>
+                    <thead>
+                      <th>Category</th>
+                      <th>Token</th>
+                      <th>Output</th>
+                  </thead>
+                    <tr>
+                      <td><b>Month</b></td>
+                      <td>M</td>
+                      <td>1 2 ... 11 12</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Mo</td>
+                      <td>1st 2nd ... 11th 12th</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>MM</td>
+                      <td>01 02 ... 11 12</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>MMM</td>
+                      <td>Jan Feb ... Nov Dec</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>MMMM</td>
+                      <td>January February ... November December</td>
+                    </tr>
+                    <tr>
+                      <td><b>Quarter</b></td>
+                      <td>Q</td>
+                      <td>1 2 3 4</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Qo</td>
+                      <td>1st 2nd 3rd 4th</td>
+                    </tr>
+                    <tr>
+                      <td><b>Day of Month</b></td>
+                      <td>D</td>
+                      <td>1 2 ... 30 31</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Do</td>
+                      <td>1st 2nd ... 30th 31st</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>DD</td>
+                      <td>01 02 ... 30 31</td>
+                    </tr>
+                    <tr>
+                      <td><b>Day of Year</b></td>
+                      <td>DDD</td>
+                      <td>1 2 ... 364 365</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>DDDo</td>
+                      <td>1st 2nd ... 364th 365th</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>DDDD</td>
+                      <td>001 002 ... 364 365</td>
+                    </tr>
+                    <tr>
+                      <td><b>Day of Week</b></td>
+                      <td>d</td>
+                      <td>0 1 ... 5 6</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>do</td>
+                      <td>0th 1st ... 5th 6th</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>dd</td>
+                      <td>Su Mo ... Fr Sa</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ddd</td>
+                      <td>Sun Mon ... Fri Sat</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>dddd</td>
+                      <td>Sunday Monday ... Friday Saturday</td>
+                    </tr>
+                    <tr>
+                      <td><b>Day of Week (Locale)</b></td>
+                      <td>e</td>
+                      <td>0 1 ... 5 6</td>
+                    </tr>
+                    <tr>
+                      <td><b>Day of Week (ISO)</b></td>
+                      <td>E</td>
+                      <td>1 2 ... 6 7</td>
+                    </tr>
+                    <tr>
+                      <td><b>Week of Year</b></td>
+                      <td>w</td>
+                      <td>1 2 ... 52 53</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>wo</td>
+                      <td>1st 2nd ... 52nd 53rd</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ww</td>
+                      <td>01 02 ... 52 53</td>
+                    </tr>
+                    <tr>
+                      <td><b>Week of Year (ISO)</b></td>
+                      <td>W</td>
+                      <td>1 2 ... 52 53</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Wo</td>
+                      <td>1st 2nd ... 52nd 53rd</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>WW</td>
+                      <td>01 02 ... 52 53</td>
+                    </tr>
+                    <tr>
+                      <td><b>Year</b></td>
+                      <td>YY</td>
+                      <td>70 71 ... 29 30</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>YYYY</td>
+                      <td>1970 1971 ... 2029 2030</td>
+                    </tr>
+                      <tr>
+                      <td></td>
+                      <td>Y</td>
+                      <td>1970 1971 ... 9999 +10000 +10001
+                        <br>
+                        <b>Note:</b> This complies with the ISO 8601 standard for dates past the year 9999
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><b>Week Year</b></td>
+                      <td>gg</td>
+                      <td>70 71 ... 29 30</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>gggg</td>
+                      <td>1970 1971 ... 2029 2030</td>
+                    </tr>
+                    <tr>
+                      <td><b>Week Year (ISO)</b></td>
+                      <td>GG</td>
+                      <td>70 71 ... 29 30</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>GGGG</td>
+                      <td>1970 1971 ... 2029 2030</td>
+                    </tr>
+                    <tr>
+                      <td><b>AM/PM</b></td>
+                      <td>A</td>
+                      <td>AM PM</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>a</td>
+                      <td>am pm</td>
+                    </tr>
+                    <tr>
+                      <td><b>Hour</b></td>
+                      <td>H</td>
+                      <td>0 1 ... 22 23</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>HH</td>
+                      <td>00 01 ... 22 23</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>h</td>
+                      <td>1 2 ... 11 12</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>hh</td>
+                      <td>01 02 ... 11 12</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>k</td>
+                      <td>1 2 ... 23 24</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>kk</td>
+                      <td>01 02 ... 23 24</td>
+                    </tr>
+                    <tr>
+                      <td><b>Minute</b></td>
+                      <td>m</td>
+                      <td>0 1 ... 58 59</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>mm</td>
+                      <td>00 01 ... 58 59</td>
+                    </tr>
+                    <tr>
+                      <td><b>Second</b></td>
+                      <td>s</td>
+                      <td>0 1 ... 58 59</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ss</td>
+                      <td>00 01 ... 58 59</td>
+                    </tr>
+                    <tr>
+                      <td><b>Fractional Second</b></td>
+                      <td>S</td>
+                      <td>0 1 ... 8 9</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>SS</td>
+                      <td>00 01 ... 98 99</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>SSS</td>
+                      <td>000 001 ... 998 999</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>SSSS ... SSSSSSSSS</td>
+                      <td>000[0..] 001[0..] ... 998[0..] 999[0..]</td>
+                    </tr>
+                    <tr>
+                      <td><b>Time zone</b></td>
+                      <td>z or zz</td>
+                      <td>
+                        EST CST ... MST PST
+                        <br>
+                        <b>Note:</b> as of <b>1.6.0</b>, the z/zz format tokens have been deprecated from plain moment objects. <a href="https://github.com/moment/moment/issues/162">Read more about it here.</a>
+                        However, they <em>do</em> work if you are using a specific time zone with the moment-timezone addon.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Z</td>
+                      <td>-07:00 -06:00 ... +06:00 +07:00</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>ZZ</td>
+                      <td>
+                        -0700 -0600 ... +0600 +0700
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><b>Unix Timestamp</b></td>
+                      <td>X</td>
+                      <td>1360013296</td>
+                    </tr>
+                    <tr>
+                      <td><b>Unix Millisecond Timestamp</b></td>
+                      <td>x</td>
+                      <td>1360013296123</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class=" modal-action modal-close waves-effect waves-green btn-flat">Close Window</a>
+            </div>
+        </div>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+            <!-- build:js scripts/vendor.js -->
+            <!-- bower:js -->
+            <script src="/bower_components/modernizr/modernizr.js"></script>
+            <script src="/bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+            <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+            <!-- endbower -->
+            <!-- endbuild -->
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+            <!-- build:js scripts/plugins.js -->
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+            <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+            <!-- endbuild -->
+
+            <script src="bower_components/chartist/dist/chartist.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+            <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.min.js"></script>
+            <!-- build:js scripts/main.js -->
+            <script src="scripts/main.js"></script>
+            <!-- endbuild -->
+        </body>
+        </html>

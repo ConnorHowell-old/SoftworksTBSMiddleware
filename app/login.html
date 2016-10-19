@@ -1,0 +1,139 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TBS/Softworks Middleware - Login</title>
+
+    <style>
+    ::-webkit-scrollbar {
+       width: 5px;
+   }
+
+   ::-webkit-scrollbar-track {
+       background-color: #fff;
+   }
+
+   ::-webkit-scrollbar-thumb {
+       background-color:#263238;
+   }
+    ::-moz-selection { background: #26a69a; color: #fff; }
+    ::selection { background: #26a69a; color: #fff; }
+
+  </style>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- endbuild -->
+
+    <link href="bower_components/Materialize/dist/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="bower_components/chartist/dist/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="styles/animate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css" />
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="blue-grey darken-3">
+    <!--[if lt IE 10]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="loading blue-grey darken-4">
+        <br>
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page hide">
+        <center>
+            <div class="container">
+                <div class="z-depth-1 grey lighten-4 row left-align" style="display: inline-block; padding: 20px 48px 0px 48px; border: 1px solid #EEE;margin-top: 50px;width:45%;">
+                    <form class="col s12" method="post" action="/login">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input class="validate" type="text" name="username" id="username">
+                                <label for="username" class="">Enter your username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input class="validate" type="password" name="password" id="password">
+                                <label for="password" class="">Enter your password</label>
+                            </div>
+                        </div>
+                        <br>
+                        <center>
+                            <div class="row">
+                                <button onclick="formValidation();return false;" name="btn_login" class="col s12 btn btn-large waves-effect blue-grey">Login</button>
+                            </div>
+                        </center>
+                    </form>
+                    <div class="col s12">
+                        <ul id="projects-collection" class="collection errorMessage hidden">
+                            <li class="collection-item statusBar">
+                                <p class="errMsg red-text text-darken-2">HI!</p>
+                            </li>
+                        </ul>
+                        <ul id="projects-collection" class="collection loginStatus hidden">
+                            <li class="collection-item statusBar">
+                                <small>Checking Details</small>
+                                <div class="progress grey lighten-3">
+                                    <div class="indeterminate blue-grey"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+    <!-- build:js scripts/plugins.js -->
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <!-- endbuild -->
+
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.min.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>
