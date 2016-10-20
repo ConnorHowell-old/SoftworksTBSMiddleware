@@ -165,6 +165,10 @@
                                 <div class="row"><div class="col s12"><h5><u>General Settings</u></h5></div></div>
                                 <div class="row">
                                     <div class="input-field col s3">
+                                        <input id="adminPW" type="password" class="validate" value="{{configData.adminPW}}" onclick="showHelp('adminPW');" onblur="hideHelp('adminPW');">
+                                        <label for="adminPW">Admin Password</label>
+                                    </div>
+                                    <div class="input-field col s3">
                                         <input id="csvdir" type="text" class="validate" value="{{configData.csvdir}}" onclick="showHelp('csvdir');" onblur="hideHelp('csvdir');">
                                         <label for="csvdir">CSV Directory</label>
                                     </div>

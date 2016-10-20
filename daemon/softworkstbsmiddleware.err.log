@@ -1,0 +1,196 @@
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+[PM2][Initialization] Environment variable HOME (Linux) or HOMEPATH (Windows) are not set!
+[PM2][Initialization] Defaulting to /etc/.pm2
+C:\Program Files\SoftworksTBSMiddleware\app.js:98
+            res.send("code": 2);
+                     ^^^^^^
+
+SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:98
+            res.send("code": 2);
+                     ^^^^^^
+
+SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:98
+            res.send("code": 2);
+                     ^^^^^^
+
+SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:87
+        res.send({"code: 0"});
+                           ^
+
+SyntaxError: Unexpected token }
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:87
+        res.send({"code: 0"});
+                           ^
+
+SyntaxError: Unexpected token }
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:87
+        res.send({"code: 0"});
+                           ^
+
+SyntaxError: Unexpected token }
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+fs.js:549
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+
+Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenroll.key'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.readFileSync (fs.js:397:15)
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:21)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)

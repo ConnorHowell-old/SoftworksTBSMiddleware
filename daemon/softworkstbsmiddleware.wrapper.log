@@ -1,0 +1,72 @@
+2016-10-11 14:12:43 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-11 14:12:43 - Started 5136
+2016-10-11 14:15:59 - Stopping softworkstbsmiddleware.exe
+2016-10-11 14:15:59 - ProcessKill 5136
+2016-10-11 14:15:59 - Finished softworkstbsmiddleware.exe
+2016-10-11 14:17:19 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-11 14:17:19 - Started 10744
+2016-10-11 15:39:53 - Stopping softworkstbsmiddleware.exe
+2016-10-11 15:39:53 - ProcessKill 10744
+2016-10-11 15:39:53 - Finished softworkstbsmiddleware.exe
+2016-10-11 15:41:02 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-11 15:41:02 - Started 12404
+2016-10-11 15:56:13 - Stopping softworkstbsmiddleware.exe
+2016-10-11 15:56:13 - ProcessKill 12404
+2016-10-11 15:56:13 - Finished softworkstbsmiddleware.exe
+2016-10-11 15:56:15 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-11 15:56:15 - Started 12864
+2016-10-11 16:07:52 - Stopping softworkstbsmiddleware.exe
+2016-10-11 16:07:52 - ProcessKill 12864
+2016-10-11 16:07:52 - Finished softworkstbsmiddleware.exe
+2016-10-11 16:07:54 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-11 16:07:54 - Started 8504
+2016-10-12 10:02:34 - Stopping softworkstbsmiddleware.exe
+2016-10-12 10:02:34 - ProcessKill 8504
+2016-10-12 10:02:34 - Finished softworkstbsmiddleware.exe
+2016-10-12 10:07:37 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-12 10:07:37 - Started 5556
+2016-10-12 11:05:17 - Stopping softworkstbsmiddleware.exe
+2016-10-12 11:05:17 - ProcessKill 5556
+2016-10-12 11:05:17 - Finished softworkstbsmiddleware.exe
+2016-10-12 11:05:19 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-12 11:05:19 - Started 8036
+2016-10-12 15:16:56 - Stopping softworkstbsmiddleware.exe
+2016-10-12 15:16:56 - ProcessKill 8036
+2016-10-12 15:16:56 - Finished softworkstbsmiddleware.exe
+2016-10-12 15:18:02 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-12 15:18:02 - Started 1772
+2016-10-12 15:19:10 - Stopping softworkstbsmiddleware.exe
+2016-10-12 15:19:10 - ProcessKill 1772
+2016-10-12 15:19:10 - Finished softworkstbsmiddleware.exe
+2016-10-12 15:46:41 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-12 15:46:41 - Started 9136
+2016-10-13 11:13:16 - Stopping softworkstbsmiddleware.exe
+2016-10-13 11:13:16 - ProcessKill 9136
+2016-10-13 11:13:16 - Finished softworkstbsmiddleware.exe
+2016-10-13 11:14:13 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-13 11:14:13 - Started 5176
+2016-10-18 14:51:28 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 14:51:28 - Started 10352
+2016-10-18 15:02:36 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 15:02:36 - Started 12932
+2016-10-18 15:02:53 - Stopping softworkstbsmiddleware.exe
+2016-10-18 15:02:53 - ProcessKill 12932
+2016-10-18 15:02:53 - Finished softworkstbsmiddleware.exe
+2016-10-18 15:02:54 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 15:02:54 - Started 3264
+2016-10-18 15:50:57 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 15:50:57 - Started 8136
+2016-10-18 15:52:03 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 15:52:03 - Started 7540
+2016-10-18 15:52:48 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 15:52:48 - Started 13280
+2016-10-18 16:10:32 - Stopping softworkstbsmiddleware.exe
+2016-10-18 16:10:32 - ProcessKill 13280
+2016-10-18 16:10:32 - Finished softworkstbsmiddleware.exe
+2016-10-18 16:10:34 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-18 16:10:34 - Started 6968
+2016-10-19 16:02:59 - Stopping softworkstbsmiddleware.exe
+2016-10-19 16:02:59 - ProcessKill 6968
+2016-10-19 16:02:59 - Finished softworkstbsmiddleware.exe
+2016-10-20 12:31:26 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-10-20 12:31:26 - Started 11492

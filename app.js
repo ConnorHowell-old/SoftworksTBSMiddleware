@@ -100,7 +100,7 @@ app.post('/isValidToken', function (req, res) {
 
 app.post('/checkLogin', function (req, res) {
     if (req.body.username == 'Administrator') {
-        if (req.body.password == 'ekaniz67') {
+        if (req.body.password == config.get('Customer.adminPW')) {
             var sessionID = require('crypto').randomBytes(32).toString('hex');
             validTokens.push(sessionID);
             res.cookie('sessionID', sessionID, { expires: new Date(Date.now() + 900000)});
@@ -134,6 +134,8 @@ app.post('/control', function (req, res) {
 app.post('/saveConfig', function (req, res) {
     var config = {
         "Customer": {
+            "adminPW": req.body['adminPW'],
+            "batchAmount": "100",
             "locale": req.body['locale'],
             "csvdir": req.body['csvdir'],
             "dateTimeFormat": req.body['dateTimeFormat'],
@@ -234,7 +236,8 @@ function pollClocks() {
             if(err) { log.error("DB ERROR: "+err); } //If the database connection errors out, output this to event viewer
             else { log.info("Database connection successfully made to: "+dbConfig.server); } //Otherwise let user know DB connection was succesful
             var Request = require('tedious').Request; //Create new TDS request call
-            request = new Request("SELECT * FROM "+config.get('Customer.TNADB.TNARecordsTable')+" WHERE "+config.get('Customer.TNADB.TNAAuthColumn')+" = "+config.get('Customer.TNADB.SuccessCode')+" AND "+config.get('Customer.TNADB.IDColumn')+" > "+currentIncrementValue, function(err, rowCount, rows) { //Execute query on DB with pre inserted fields from the config
+            var upperLimit = currentIncrementValue+config.get('Customer.batchAmount');
+            request = new Request("SELECT * FROM "+config.get('Customer.TNADB.TNARecordsTable')+" WHERE "+config.get('Customer.TNADB.TNAAuthColumn')+" = "+config.get('Customer.TNADB.SuccessCode')+" AND "+config.get('Customer.TNADB.IDColumn')+" > "+currentIncrementValue+" AND "+config.get('Customer.TNADB.IDColumn')+" < "+upperLimit, function(err, rowCount, rows) { //Execute query on DB with pre inserted fields from the config
                 if(err) { log.error("DB ERROR: "+err); } //If there is an error with the query, log to event viewer
                 else { //If all is good
                     var csvStream = csv.createWriteStream({headers: false}); //Create a new CSV writer instance (we don't want to output CSV headers)
