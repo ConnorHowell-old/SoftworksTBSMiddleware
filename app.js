@@ -24,6 +24,7 @@ app.use(cookieParser());
 app.engine('handlebars', exphbs({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
 
+var wss = new WebSocketServer({ port: 8080 });
 var validTokens = new Array;
 var lastPollTime = 'Never';
 var configChanged;
@@ -263,15 +264,16 @@ function pollClocks() {
                             } //End if statement
                         } //End if statement for checking clocking status
                     }); //End foreach loop
-                    csvStream.end(); //End csv pipe
                     if (countItems > 0) { //If there are more than 0 items found produce CSV
+                        csvStream.end(); //End csv pipe
                         fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
                             if(err) {
                                 return log.error(err); //If the file cannot be written make this known in the event viewer
                             }
                             log.info("The incremental text file has been updated to the value: "+currentIncrementValue); //Let user know the updated file has been written with the new value
                         }); //End async file write
-                    } else if (config.get('Customer.produceFileIfNull') == 'true' && countItems == 0) { //Otherwise if produceFileIfNull is set to true and no items are found, produce a file
+                    } else if (countItems == 0 && config.get('Customer.produceFileIfNull') == 'true') { //Otherwise if produceFileIfNull is set to true and no items are found, produce a file
+                        csvStream.end(); //End csv pipe
                         fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
                             if(err) {
                                 return log.error(err); //If the file cannot be written make this known in the event viewer

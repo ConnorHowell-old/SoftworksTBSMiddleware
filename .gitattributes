@@ -1,1 +1,3 @@
 * text=auto
+app/* linguist-vendored
+log_mon/* linguist-documentation
