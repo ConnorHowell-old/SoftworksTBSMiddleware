@@ -188,10 +188,6 @@
                                         <input id="incrementTXT" type="text" class="validate" value="{{configData.incrementTXT}}" onclick="showHelp('TNADB.IDColumn');">
                                         <label for="incrementTXT">Increment Text File</label>
                                     </div>
-                                    <div class="input-field col s3">
-                                        <input id="produceFileIfNull" type="text" class="validate" value="{{configData.produceFileIfNull}}" onclick="showHelp('produceFileIfNull');" onblur="hideHelp('produceFileIfNull');">
-                                        <label for="produceFileIfNull">Produce output file if result is null?</label>
-                                    </div>
                                 </div>
                                 <div class="row"><div class="col s12"><h5><u>Database Settings</u></h5></div></div>
                                 <div class="row">
@@ -261,14 +257,6 @@
                     <div class="card-content white-text">
                         <span class="card-title">Help Information</span>
                         <p>The 'Date/Time Format' field is used to set the format of the time shown on the transcript file (trans_xxxxxxxxxxxx.txt) the syntax for this field can be found: <a href="#modal3" class="modal-trigger">here</a>, the default for this field is: DDMMYYYYHHmm which produces an output such as the following: <span class="currentTime"></span> </p>
-                    </div>
-                </div>
-            </div>
-            <div class="produceFileIfNull_help hidden">
-                <div class="card blue-grey lighten-2">
-                    <div class="card-content white-text">
-                        <span class="card-title">Help Information</span>
-                        <p>The 'Produce file if null result' field is used to determine whether or not a file is produced when no applicable results are found in the database. This should remain as false unless you are using it for debugging purposes, otherwise a blank file will be created on every poll. </p>
                     </div>
                 </div>
             </div>

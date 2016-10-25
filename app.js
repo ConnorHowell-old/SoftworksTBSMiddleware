@@ -15,7 +15,8 @@ var csv             = require("fast-csv"),
     handlebars      = require('handlebars'),
     bodyParser      = require('body-parser'),
     exphbs          = require('express-handlebars'),
-    cookieParser    = require('cookie-parser')
+    cookieParser    = require('cookie-parser'),
+    sanitizer       = require('sanitizer'),
     sass            = require('node-sass');
 
 app.use(require('body-parser').json());
@@ -47,7 +48,7 @@ app.use('/styles', express.static('C:/Program Files/SoftworksTBSMiddleware/app/s
 app.use('/bower_components', express.static('C:/Program Files/SoftworksTBSMiddleware/bower_components'));
 
 app.get('/', function (req, res) {
-    if(validTokens.indexOf(req.cookies.sessionID)==-1) {
+    if(validTokens.indexOf(req.cookies.sessionID) == -1) {
         res.redirect('/login');
     }
     else {
@@ -134,26 +135,27 @@ app.post('/control', function (req, res) {
 app.post('/saveConfig', function (req, res) {
     var config = {
         "Customer": {
-            "adminPW": req.body['adminPW'],
+            "adminPW": sanitizer.escape(req.body['adminPW']),
+            "produceFileIfNull": sanitizer.escape(req.body['produceFileIfNull']),
             "batchAmount": "100",
-            "locale": req.body['locale'],
-            "csvdir": req.body['csvdir'],
-            "dateTimeFormat": req.body['dateTimeFormat'],
-            "pollRate": req.body['pollRate'],
-            "incrementTXT": req.body['incrementTXT'],
+            "locale": sanitizer.escape(req.body['locale']),
+            "csvdir": sanitizer.escape(req.body['csvdir']),
+            "dateTimeFormat": sanitizer.escape(req.body['dateTimeFormat']),
+            "pollRate": sanitizer.escape(req.body['pollRate']),
+            "incrementTXT": sanitizer.escape(req.body['incrementTXT']),
             "dbConfig": {
-                "userName": req.body['dbConfig.userName'],
-                "password": req.body['dbConfig.password'],
-                "server": req.body['dbConfig.server'],
+                "userName": sanitizer.escape(req.body['dbConfig.userName']),
+                "password": sanitizer.escape(req.body['dbConfig.password']),
+                "server": sanitizer.escape(req.body['dbConfig.server']),
                 "options": {
-                    "encrypt": true, "database": req.body['dbConfig.options.database'], "port": req.body['dbConfig.options.port'], "rowCollectionOnRequestCompletion": true
+                    "encrypt": true, "database": sanitizer.escape(req.body['dbConfig.options.database']), "port": sanitizer.escape(req.body['dbConfig.options.port']), "rowCollectionOnRequestCompletion": true
                 }
             },
             "TNADB": {
-                "TNARecordsTable": req.body['TNADB.TNARecordsTable'],
-                "TNAAuthColumn": req.body['TNADB.TNAAuthColumn'],
-                "SuccessCode": req.body['TNADB.SuccessCode'],
-                "IDColumn": req.body['TNADB.IDColumn']
+                "TNARecordsTable": sanitizer.escape(req.body['TNADB.TNARecordsTable']),
+                "TNAAuthColumn": sanitizer.escape(req.body['TNADB.TNAAuthColumn']),
+                "SuccessCode": sanitizer.escape(req.body['TNADB.SuccessCode']),
+                "IDColumn": sanitizer.escape(req.body['TNADB.IDColumn'])
             }
         }
     };
@@ -240,6 +242,7 @@ function pollClocks() {
             request = new Request("SELECT * FROM "+config.get('Customer.TNADB.TNARecordsTable')+" WHERE "+config.get('Customer.TNADB.TNAAuthColumn')+" = "+config.get('Customer.TNADB.SuccessCode')+" AND "+config.get('Customer.TNADB.IDColumn')+" > "+currentIncrementValue+" AND "+config.get('Customer.TNADB.IDColumn')+" < "+upperLimit, function(err, rowCount, rows) { //Execute query on DB with pre inserted fields from the config
                 if(err) { log.error("DB ERROR: "+err); } //If there is an error with the query, log to event viewer
                 else { //If all is good
+                    var countItems = 0; //New integer to store how many records fit the criteria
                     var csvStream = csv.createWriteStream({headers: false}); //Create a new CSV writer instance (we don't want to output CSV headers)
                     var lastResult = currentIncrementValue; //Set the local last result variable to the global variable
                     var writableStream = fs.createWriteStream(config.get('Customer.csvdir')+'trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.txt'); //Create new writable stream to new txt file
@@ -251,6 +254,7 @@ function pollClocks() {
                     rows.forEach(function(row) { //For each rows found
                         var clockStatus = TNAConstants.get(row[11].value).key; //Populate clocks status with the ENUM value of TA_IDContext field
                         if (clockStatus == 'COMING' | clockStatus == 'LEAVING') { //Check if clocking status is coming or leaving (100 or 200), will ignore 0 (UNKNOWN clocking type)
+                            countItems++; //increase current count integer
                             var time = moment(row[1].value).utc();
                             csvStream.write({a: row[3].value, b: "P", c: "", d: row[7].value, e: time.format('HH:mm'), f: moment(row[1].value).format('DD/MM/YYYY'), g: moment(row[1].value).isoWeekday()}); //Write a CSV formatted line for this record
                             if(row[0].value > lastResult) //If the ID of this row is bigger than the current increment value
@@ -260,12 +264,21 @@ function pollClocks() {
                         } //End if statement for checking clocking status
                     }); //End foreach loop
                     csvStream.end(); //End csv pipe
-                    fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
-                        if(err) {
-                            return log.error(err); //If the file cannot be written make this known in the event viewer
-                        }
-                        log.info("The incremental text file has been updated to the value: "+currentIncrementValue); //Let user know the updated file has been written with the new value
-                    }); //End async file write
+                    if (countItems > 0) { //If there are more than 0 items found produce CSV
+                        fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
+                            if(err) {
+                                return log.error(err); //If the file cannot be written make this known in the event viewer
+                            }
+                            log.info("The incremental text file has been updated to the value: "+currentIncrementValue); //Let user know the updated file has been written with the new value
+                        }); //End async file write
+                    } else if (config.get('Customer.produceFileIfNull') == 'true' && countItems == 0) { //Otherwise if produceFileIfNull is set to true and no items are found, produce a file
+                        fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
+                            if(err) {
+                                return log.error(err); //If the file cannot be written make this known in the event viewer
+                            }
+                            log.info("The incremental text file has been updated to the value: "+currentIncrementValue); //Let user know the updated file has been written with the new value
+                        }); //End async file write
+                    } else log.info('No results that match the criteria were found'); //If produceFileIfNull is set to false and no items are found, do nothing but log to event viewer.
                 } //End the if statement for the DB request
             }); //End request callback
             connection.execSql(request); //Execute the SQL query and the above code

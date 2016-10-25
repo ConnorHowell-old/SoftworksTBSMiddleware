@@ -21,7 +21,7 @@ svc.on('alreadyinstalled',function(){
 // Listen for the "start" event and let us know when the
 // process has actually started working.
 svc.on('start',function(){
-  console.log(svc.name+' started!\nVisit http://127.0.0.1:3000 to see it in action.');
+  console.log(svc.name+' started!\nVisit http://127.0.0.1:3040 to see it in action.');
 });
 
 // Install the script as a service.
