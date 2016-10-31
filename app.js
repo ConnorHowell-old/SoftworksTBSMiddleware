@@ -141,6 +141,7 @@ app.post('/saveConfig', function (req, res) {
             "batchAmount": "100",
             "locale": sanitizer.escape(req.body['locale']),
             "csvdir": sanitizer.escape(req.body['csvdir']),
+            "basedir":"C:/Program Files/SoftworksTBSMiddleware/",
             "dateTimeFormat": sanitizer.escape(req.body['dateTimeFormat']),
             "pollRate": sanitizer.escape(req.body['pollRate']),
             "incrementTXT": sanitizer.escape(req.body['incrementTXT']),
@@ -246,7 +247,7 @@ function pollClocks() {
                     var countItems = 0; //New integer to store how many records fit the criteria
                     var csvStream = csv.createWriteStream({headers: false}); //Create a new CSV writer instance (we don't want to output CSV headers)
                     var lastResult = currentIncrementValue; //Set the local last result variable to the global variable
-                    var writableStream = fs.createWriteStream(config.get('Customer.csvdir')+'trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.txt'); //Create new writable stream to new txt file
+                    var writableStream = fs.createWriteStream(config.get('Customer.basedir')+'temp/trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.con'); //Create new writable stream to new txt file
                     writableStream.on("finish", function(){ //Called when the file has been written
                         log.info("CSV File Written"); //Log to event viewer that the file was written successfully
                     });
@@ -266,6 +267,9 @@ function pollClocks() {
                     }); //End foreach loop
                     if (countItems > 0) { //If there are more than 0 items found produce CSV
                         csvStream.end(); //End csv pipe
+                        fs.rename(config.get('Customer.basedir')+'temp/trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.con', config.get('Customer.csvdir')+'trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.txt', function(err) {
+                            if ( err ) log.error('ERROR: ' + err);
+                        });
                         fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
                             if(err) {
                                 return log.error(err); //If the file cannot be written make this known in the event viewer
@@ -274,13 +278,19 @@ function pollClocks() {
                         }); //End async file write
                     } else if (countItems == 0 && config.get('Customer.produceFileIfNull') == 'true') { //Otherwise if produceFileIfNull is set to true and no items are found, produce a file
                         csvStream.end(); //End csv pipe
+                        fs.rename(config.get('Customer.basedir')+'temp/trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.con', config.get('Customer.csvdir')+'trans_'+moment().format(config.get('Customer.dateTimeFormat'))+'.txt', function(err) {
+                            if ( err ) log.error('ERROR: ' + err);
+                        });
                         fs.writeFile(config.get('Customer.incrementTXT'), lastResult, function(err) { //write the increment file with the last result
                             if(err) {
                                 return log.error(err); //If the file cannot be written make this known in the event viewer
                             }
                             log.info("The incremental text file has been updated to the value: "+currentIncrementValue); //Let user know the updated file has been written with the new value
                         }); //End async file write
-                    } else log.info('No results that match the criteria were found'); //If produceFileIfNull is set to false and no items are found, do nothing but log to event viewer.
+                    } else {
+                        log.info('No results that match the criteria were found'); //If produceFileIfNull is set to false and no items are found, do nothing but log to event viewer.
+                        csvStream.end(); //End csv pipe
+                    }
                 } //End the if statement for the DB request
             }); //End request callback
             connection.execSql(request); //Execute the SQL query and the above code

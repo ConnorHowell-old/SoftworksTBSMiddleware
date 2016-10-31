@@ -211,3 +211,6 @@ body {
 
 main {
   flex: 1 0 auto; }
+  .tabs .indicator {
+      background-color: #607d8b;
+  }

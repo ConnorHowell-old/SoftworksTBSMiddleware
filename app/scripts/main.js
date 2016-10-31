@@ -194,3 +194,30 @@ function refreshValue() {
     }, 1500);
     NProgress.done();
 }
+
+var data = {
+  series: [5, 3, 4]
+};
+
+var sum = function(a, b) { return a + b };
+
+new Chartist.Pie('.ct-chart', data, {
+    width: '400px',
+    height: '400px',
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+  }
+});
+
+new Chartist.Line('.clock-chart', {
+  labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  series: [
+    [12, 9, 7, 8, 5]
+  ]
+}, {
+  width: '900px',
+  height: '400px',
+  chartPadding: {
+    right: 40
+  }
+});
