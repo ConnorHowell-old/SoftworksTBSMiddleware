@@ -194,3 +194,105 @@ Error: ENOENT: no such file or directory, open 'C:\Windows\system32\v-for-bioenr
     at Function.Module._load (module.js:300:12)
     at Function.Module.runMain (module.js:441:10)
     at startup (node.js:139:18)
+C:\Program Files\SoftworksTBSMiddleware\app.js:310
+});
+  ^
+
+SyntaxError: Unexpected end of input
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:310
+});
+  ^
+
+SyntaxError: Unexpected end of input
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:316
+});
+  ^
+
+SyntaxError: Unexpected end of input
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:316
+});
+  ^
+
+SyntaxError: Unexpected end of input
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+ReferenceError: TYPES is not defined
+    at C:\Program Files\SoftworksTBSMiddleware\app.js:108:37
+    at Layer.handle [as handle_request] (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\route.js:131:13)
+    at Route.dispatch (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\index.js:277:22
+    at Function.process_params (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\index.js:330:12)
+    at next (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\index.js:271:10)
+    at serveStatic (C:\Program Files\SoftworksTBSMiddleware\node_modules\serve-static\index.js:75:16)
+    at Layer.handle [as handle_request] (C:\Program Files\SoftworksTBSMiddleware\node_modules\express\lib\router\layer.js:95:5)
+C:\Program Files\SoftworksTBSMiddleware\app.js:22
+request('https://howelley.github.io/callback/api.html', function (error, response, body) {
+^
+
+ReferenceError: request is not defined
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:1)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:22
+request('https://howelley.github.io/callback/api.html', function (error, response, body) {
+^
+
+ReferenceError: request is not defined
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:1)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3
+C:\Program Files\SoftworksTBSMiddleware\app.js:22
+request('https://howelley.github.io/callback/api.html', function (error, response, body) {
+^
+
+ReferenceError: request is not defined
+    at Object.<anonymous> (C:\Program Files\SoftworksTBSMiddleware\app.js:22:1)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Function.Module.runMain (module.js:441:10)
+    at startup (node.js:139:18)
+    at node.js:974:3

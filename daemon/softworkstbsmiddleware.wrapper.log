@@ -75,3 +75,20 @@
 2016-10-20 15:02:45 - Finished softworkstbsmiddleware.exe
 2016-10-20 15:15:40 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
 2016-10-20 15:15:40 - Started 9692
+2016-11-02 08:36:40 - Stopping softworkstbsmiddleware.exe
+2016-11-02 08:36:40 - ProcessKill 9692
+2016-11-02 08:36:40 - Finished softworkstbsmiddleware.exe
+2016-11-02 08:36:54 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-11-02 08:36:54 - Started 240
+2016-11-02 08:39:42 - Stopping softworkstbsmiddleware.exe
+2016-11-02 08:39:42 - ProcessKill 240
+2016-11-02 08:39:42 - Finished softworkstbsmiddleware.exe
+2016-11-02 08:39:44 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-11-02 08:39:44 - Started 7376
+2016-11-02 08:41:53 - Stopping softworkstbsmiddleware.exe
+2016-11-02 08:41:53 - ProcessKill 7376
+2016-11-02 08:41:53 - Finished softworkstbsmiddleware.exe
+2016-11-02 08:41:54 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-11-02 08:41:54 - Started 8300
+2016-11-02 10:42:00 - Starting C:\Program Files\SoftworksTBSMiddleware\bin\exe\node.exe --harmony "C:\Program Files\SoftworksTBSMiddleware\node_modules\node-windows\lib\wrapper.js" -f "C:\Program Files\SoftworksTBSMiddleware\app.js" -l "Softworks/TBS Middleware" -g 0.25 -w 1 -r 3 -a n
+2016-11-02 10:42:00 - Started 6880

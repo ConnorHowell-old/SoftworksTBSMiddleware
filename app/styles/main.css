@@ -46,7 +46,7 @@ html {
       height: 55px; }
       .side-nav.custom-side-nav li a:active, .side-nav.custom-side-nav li a:hover {
         color: white;
-        background: rgba(0, 0, 0, 0.1); }
+        background: rgba(0, 0, 0, 0.4); }
       .side-nav.custom-side-nav li a i {
         position: relative;
         top: 15px;

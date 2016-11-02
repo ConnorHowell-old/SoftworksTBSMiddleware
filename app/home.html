@@ -83,7 +83,7 @@
                         </li>
                     </ul>
                     <ul class="right">
-                        <li><a class="waves-effect waves-light btn" href="https://github.com/Formaplex/SoftworksTBSMiddleware/issues/new" target="_blank">Log Issue</a></li>
+                        <li><a class="waves-effect waves-light btn" onclick="licenseInfo();">License Info</a></li>
                         <li>
                             <a href="#" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Logout" onclick="logoutDialog();">
                                 <i class="material-icons">exit_to_app</i>
@@ -163,8 +163,8 @@
                 <div class="col s12">
                     <div class="card-panel fadeIn animated">
                         <ul class="tabs tabs-fixed-width blue-grey-text">
-                            <li class="tab col s3"><a class="active blue-grey-text" href="#config">Edit Configuration</a></li>
-                            <li class="tab col s3"><a class="blue-grey-text" href="#stats">View Statistics</a></li>
+                            <li class="tab col s3"><a class="blue-grey-text" href="#config">Edit Configuration</a></li>
+                            <li class="tab col s3"><a class="active blue-grey-text" href="#stats">View Statistics</a></li>
                             <li class="tab col s3"><a class="blue-grey-text" href="#about">About</a></li>
                         </ul>
                     </div>
@@ -265,7 +265,7 @@
                         <main>
                             <div class="card-panel hoverable fadeIn animated">
                                 <div class="row">
-
+                                    <div class="col s12"><h5><u>About the Software</u></h5> <img src="https://ci.appveyor.com/api/projects/status/djmjy08jgrgno8bi?svg=true" alt="Build Status" /> <img src="https://img.shields.io/github/license/Formaplex/SoftworksTBSMiddleware.svg" alt="License" /> <img src="https://img.shields.io/librariesio/github/Formaplex/SoftworksTBSMiddleware.svg" alt="Dependancy Tracker" /> </div>
                                 </div>
                             </div>
                         </main>
@@ -363,6 +363,16 @@
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
             <a href="#" onclick="performLogout();" class="modal-action modal-close waves-effect waves-green btn-flat">Logout</a>
+        </div>
+    </div>
+
+    <div id="licenseDialog" class="modal">
+        <div class="modal-content">
+            <h4>License Details</h4>
+            <p>Registered To: <em>Formaplex Ltd.</em><br>Valid From: <em>November 1st 2016, 10:34:51 am</em><br>Valid To: <em>November 1st 2017, 10:34:51 am</em></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
         </div>
     </div>
 
