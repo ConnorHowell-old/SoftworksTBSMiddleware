@@ -30,7 +30,6 @@
     <!-- endbuild -->
 
     <link href="bower_components/Materialize/dist/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="bower_components/chartist/dist/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -42,7 +41,7 @@
     <!-- endbuild -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body onload="setInterval(function(){ window.dispatchEvent(new Event('resize')); }, 10);"> <!-- Tab selector fix -->
     <!--[if lt IE 10]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -81,9 +80,14 @@
                                 <i class="material-icons">receipt</i>
                             </a>
                         </li>
+                        <li>
+                            <a href="#LogFile" class="tooltipped modal-trigger" data-position="right" data-delay="50" data-tooltip="View Log File" onclick="getLogs();">
+                                <i class="material-icons">toc</i>
+                            </a>
+                        </li>
                     </ul>
                     <ul class="right">
-                        <li><a class="waves-effect waves-light btn" onclick="licenseInfo();">License Info</a></li>
+                        <!--<li><a class="waves-effect waves-light btn" onclick="licenseInfo();">License Info</a></li>-->
                         <li>
                             <a href="#" class="tooltipped" data-position="left" data-delay="50" data-tooltip="Logout" onclick="logoutDialog();">
                                 <i class="material-icons">exit_to_app</i>
@@ -163,9 +167,10 @@
                 <div class="col s12">
                     <div class="card-panel fadeIn animated">
                         <ul class="tabs tabs-fixed-width blue-grey-text">
-                            <li class="tab col s3"><a class="blue-grey-text" href="#config">Edit Configuration</a></li>
-                            <li class="tab col s3"><a class="active blue-grey-text" href="#stats">View Statistics</a></li>
-                            <li class="tab col s3"><a class="blue-grey-text" href="#about">About</a></li>
+                            <li class="tab col s6 m3"><a class="active blue-grey-text" href="#stats">Statistics</a></li>
+                            <li class="tab col s6 m3"><a class="blue-grey-text" href="#config">Settings</a></li>
+                            <li class="tab col s6 m3"><a class="blue-grey-text" href="#about">About</a></li>
+                            <li class="tab col s6 m3 disabled"><a class="blue-grey-text" href="#cleanup">Cleanup</a></li>
                         </ul>
                     </div>
                     <div id="config" class="col s12">
@@ -175,23 +180,23 @@
                                     <form class="col s12" id="configForm" action="/">
                                         <div class="row"><div class="col s12"><h5><u>General Settings</u></h5></div></div>
                                         <div class="row">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="adminPW" type="password" class="validate" value="{{configData.adminPW}}" onclick="showHelp('adminPW');" onblur="hideHelp('adminPW');">
                                                 <label for="adminPW">Admin Password</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="csvdir" type="text" class="validate" value="{{configData.csvdir}}" onclick="showHelp('csvdir');" onblur="hideHelp('csvdir');">
                                                 <label for="csvdir">CSV Directory</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="pollRate" type="text" class="validate" value="{{configData.pollRate}}" onclick="showHelp('pollRate');" onblur="hideHelp('pollRate');">
                                                 <label for="pollRate">Polling Rate (ms)</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dateTimeFormat" type="text" class="validate" value="{{configData.dateTimeFormat}}" onclick="showHelp('dateTimeFormat');" onblur="hideHelp('dateTimeFormat');">
                                                 <label for="dateTimeFormat">Date/Time Format</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="locale" type="text" class="validate" value="{{configData.locale}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="locale">Locale</label>
                                             </div>
@@ -199,46 +204,46 @@
                                                 <input id="incrementTXT" type="text" class="validate" value="{{configData.incrementTXT}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="incrementTXT">Increment Text File</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="produceFileIfNull" type="text" class="validate" value="{{configData.produceFileIfNull}}" onclick="showHelp('produceFileIfNull');" onblur="hideHelp('produceFileIfNull');">
                                                 <label for="produceFileIfNull">Produce output file if result is null?</label>
                                             </div>
                                         </div>
                                         <div class="row"><div class="col s12"><h5><u>Database Settings</u></h5></div></div>
                                         <div class="row">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dbConfig.server" type="text" class="validate" value="{{configData.dbConfig.server}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="dbConfig.server">Server Name</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dbConfig.userName" type="text" class="validate" value="{{configData.dbConfig.userName}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="dbConfig.userName">Userame</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dbConfig.password" type="password" class="validate" value="{{configData.dbConfig.password}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="dbConfig.password">Password</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dbConfig.options.database" type="text" class="validate" value="{{configData.dbConfig.options.database}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="dbConfig.options.database">Database</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="dbConfig.options.port" type="text" class="validate" value="{{configData.dbConfig.options.port}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="dbConfig.options.port">Server Port</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="TNADB.TNARecordsTable" type="text" class="validate" value="{{configData.TNADB.TNARecordsTable}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="TNADB.TNARecordsTable">TNA Records Table</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="TNADB.TNAAuthColumn" type="text" class="validate" value="{{configData.TNADB.TNAAuthColumn}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="TNADB.TNAAuthColumn">TNA Authorization Column</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="TNADB.SuccessCode" type="text" class="validate" value="{{configData.TNADB.SuccessCode}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="TNADB.SuccessCode">TNA Success Code</label>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12 m6 l3">
                                                 <input id="TNADB.IDColumn" type="text" class="validate" value="{{configData.TNADB.IDColumn}}" onclick="showHelp('TNADB.IDColumn');">
                                                 <label for="TNADB.IDColumn">TNA User ID Column</label>
                                             </div>
@@ -253,10 +258,8 @@
                         <main>
                             <div class="card-panel hoverable fadeIn animated">
                                 <div class="row">
-                                    <div class="col s6"><h5><u>Events triggered today</u></h5></div>
-                                    <div class="col s6"><h5><u>Clockings Per Day</u></h5></div>
-                                    <div class="ct-chart col s6"></div>
-                                    <div class="clock-chart col s6"></div>
+                                    <div class="col s12 m12 l6"><h5><u>All Events Triggered in the last 7 days</u></h5><canvas id="eventChart" style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;"></canvas></div>
+                                    <div class="col s12 m12 l6"><h5><u>Clockings Per Day</u></h5><canvas id="clockChart" style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;"></canvas></div>
                                 </div>
                             </div>
                         </main>
@@ -266,6 +269,27 @@
                             <div class="card-panel hoverable fadeIn animated">
                                 <div class="row">
                                     <div class="col s12"><h5><u>About the Software</u></h5> <img src="https://ci.appveyor.com/api/projects/status/djmjy08jgrgno8bi?svg=true" alt="Build Status" /> <img src="https://img.shields.io/github/license/Formaplex/SoftworksTBSMiddleware.svg" alt="License" /> <img src="https://img.shields.io/librariesio/github/Formaplex/SoftworksTBSMiddleware.svg" alt="Dependancy Tracker" /> </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                    <div id="cleanup" class="col s12">
+                        <main>
+                            <div class="card-panel hoverable fadeIn animated">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="collapsible popout" data-collapsible="accordion">
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">view_list</i>Temp Files ({{tempFiles}})</div>
+                                                <div class="collapsible-body"><p><a class="waves-effect waves-light btn red darken-1" onclick="Materialize.toast('Deleting old temporary files..', 2000);">Delete</a></p></div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">view_stream</i>Old Clockings ({{oldFiles}})</div>
+                                                <div class="collapsible-body"><p><a class="waves-effect waves-light btn red darken-1" onclick="Materialize.toast('Deleting old clocking trans files..', 2000);">Delete</a> <a class="waves-effect waves-light btn amber darken-1"  onclick="Materialize.toast('Archiving old clocking trans files..', 2000);">Archive</a></p></div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
                         </main>
@@ -322,7 +346,7 @@
                 <tbody>
                     {{#each files}}
                     <tr onclick="viewContents('{{this}}');" class="modal-action modal-close">
-                        <td style="cursor:default">{{this}}</td>
+                        <td style="cursor:pointer">{{this}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -330,6 +354,16 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <div id="LogFile" class="modal">
+        <div class="modal-content">
+            <h4>Log Contents</h4>
+            <pre class="logContents"></pre>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Close</a>
         </div>
     </div>
 
@@ -720,7 +754,7 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
-    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.min.js"></script>
     <!-- build:js scripts/main.js -->

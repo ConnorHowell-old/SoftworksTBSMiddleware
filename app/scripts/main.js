@@ -1,3 +1,4 @@
+NProgress.start();
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -13,19 +14,6 @@ function getCookie(cname) {
     return "";
 }
 
-function filterClockResults(array, prop, value){
-    var filtered = [];
-    for(var i = 0; i < array.length; i++){
-        var obj = array[i];
-        for (var i = 0; i < obj.length; i++) {
-            if (obj[prop] == value) {
-                filtered.push(obj);
-            }
-        }
-    }
-    return filtered;
-}
-
 function deleteAllCookies() {
     var cookies = document.cookie.split(";");
 
@@ -37,13 +25,107 @@ function deleteAllCookies() {
     }
 }
 
+function clockSort(data) {
+    var Monday=0,Tuesday=0,Wednesday=0,Thursday=0,Friday=0;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][5].value == '100' & data[i][11].value == '100') {
+            var date = moment(data[i][1].value).utc().format('dddd');
+            var day = moment(data[i][1].value).utc().weekday();
+            var currentDay = moment().utc().weekday();
+            if (date == 'Monday' && day <= currentDay) {
+                Monday++;
+            }
+            if (date == 'Tuesday' && day <= currentDay) {
+                Tuesday++;
+            }
+            if (date == 'Wednesday' && day <= currentDay) {
+                Wednesday++;
+            }
+            if (date == 'Thursday' && day <= currentDay) {
+                Thursday++;
+            }
+            if (date == 'Friday' && day <= currentDay) {
+                Friday++;
+            }
+        }
+    }
+    var array = {
+        'Monday': Monday,
+        'Tuesday': Tuesday,
+        'Wednesday': Wednesday,
+        'Thursday': Thursday,
+        'Friday': Friday,
+    };
+    return array;
+}
+
+function failedClockSort(data) {
+    var Monday=0,Tuesday=0,Wednesday=0,Thursday=0,Friday=0;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][5].value == '200' & data[i][11].value == '100') {
+            var date = moment(data[i][1].value).utc().format('dddd');
+            var day = moment(data[i][1].value).utc().weekday();
+            var currentDay = moment().utc().weekday();
+            if (date == 'Monday' && day <= currentDay) {
+                Monday++;
+            }
+            if (date == 'Tuesday' && day <= currentDay) {
+                Tuesday++;
+            }
+            if (date == 'Wednesday' && day <= currentDay) {
+                Wednesday++;
+            }
+            if (date == 'Thursday' && day <= currentDay) {
+                Thursday++;
+            }
+            if (date == 'Friday' && day <= currentDay) {
+                Friday++;
+            }
+        }
+    }
+    var array = {
+        'Monday': Monday,
+        'Tuesday': Tuesday,
+        'Wednesday': Wednesday,
+        'Thursday': Thursday,
+        'Friday': Friday,
+    };
+    return array;
+}
+
+function typeSort(data) {
+    var Clocking=0,Enrollment=0,Admin=0,FailedAuth=0;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][5].value == '100') {
+            if (data[i][11].value == '100') {
+                Clocking++;
+            }
+            if (data[i][11].value == '400') {
+                Enrollment++;
+            }
+            if (data[i][11].value == '300') {
+                Admin++;
+            }
+        } else if (data[i][5].value == '200') {
+            FailedAuth++;
+        }
+    }
+    var array = {
+        'Clocking': Clocking,
+        'Enrollment': Enrollment,
+        'Admin': Admin,
+        'FailedAuth': FailedAuth
+    };
+    return array;
+}
+
 function getClockValues () {
     $.ajax({
         url: '/getClockData',
         type: 'POST',
         contentType: 'application/json'
     }).done(function(data) {
-        console.log(filterClockResults(data, 9, "roope"));
+        ret = data;
     });
 }
 
@@ -60,7 +142,9 @@ $(document).ready(function() {
             window.location.replace("/login");
         }
     });
+    window.dispatchEvent(new Event('resize'));
 });
+
 (function () {
     $('.button-collapse').sideNav();
     $('.currentTime').text(moment().format('DDMMYYYYHHmm'));
@@ -91,6 +175,16 @@ function hideHelp(field) {
     }, 100);
 }
 
+function getLogs() {
+    $.ajax({
+        url: '/getLogs',
+        type: 'POST',
+        contentType: 'application/json'
+    }).done(function(data) {
+        $('.logContents').text(data);
+    });
+}
+
 function viewContents(filename) {
     $('#fileContents').openModal();
     $('.view_filename').text(filename);
@@ -106,7 +200,19 @@ function viewContents(filename) {
             complete: function(results) {
                 var tableRows;
                 results.data.forEach(function (row) {
-                    tableRows += '<tr><td>'+row[0]+'</td>'+'<td>'+row[3]+'</td>'+'<td>'+row[4]+'</td>'+'<td>'+row[5]+'</td></tr>';
+                    tableRows +=
+                    '<tr><td>'+
+                    row[0]+
+                    '</td>'+
+                    '<td>'+
+                    row[3]+
+                    '</td>'+
+                    '<td>'+
+                    row[4]+
+                    '</td>'+
+                    '<td>'+
+                    row[5]+
+                    '</td></tr>';
                 });
                 $('.csvContents').html(tableRows);
             }
@@ -222,27 +328,80 @@ function refreshValue() {
     NProgress.done();
 }
 
-var data = {
-    labels: ['Clocking', 'Enrollment', 'Admin'],
-    series: [5, 3, 4]
-};
-
-var sum = function(a, b) { return a + b };
-
-new Chartist.Pie('.ct-chart', data, {
-    width: '400px',
-    height: '400px',
+$.ajax({
+    url: '/getClockData',
+    type: 'POST',
+    contentType: 'application/json'
+}).done(function(data) {
+    types = typeSort(data);
+    var ctx = document.getElementById("eventChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [
+                'Clocking',
+                'Enrollment',
+                'Admin',
+                'Failed Authentication'
+            ],
+            datasets: [{
+                backgroundColor: [
+                    "#43a047",
+                    "#1e88e5",
+                    "#cfd8dc",
+                    "#e53935"
+                ],
+                data: [
+                    types.Clocking,
+                    types.Enrollment,
+                    types.Admin,
+                    types.FailedAuth
+                ]
+            }]
+        }
+    });
 });
 
-new Chartist.Line('.clock-chart', {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    series: [
-        [0, 0, 0, 0, 0]
-    ]
-}, {
-    width: '900px',
-    height: '400px',
-    chartPadding: {
-        right: 40
-    }
+$.ajax({
+    url: '/getClockData',
+    type: 'POST',
+    contentType: 'application/json'
+}).done(function(data) {
+    clockings = clockSort(data);
+    failed = failedClockSort(data);
+    var ctx = document.getElementById('clockChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday'
+            ],
+            datasets: [{
+                label: 'Clockings',
+                data: [
+                    clockings.Monday,
+                    clockings.Tuesday,
+                    clockings.Wednesday,
+                    clockings.Thursday,
+                    clockings.Friday
+                ],
+                backgroundColor: "rgba(165,214,167,0.4)"
+            },{
+                label: 'Failed Clockings',
+                data: [
+                    failed.Monday,
+                    failed.Tuesday,
+                    failed.Wednesday,
+                    failed.Thursday,
+                    failed.Friday
+                ],
+                backgroundColor: "rgba(229, 57, 53, 0.4)"
+            }]
+        }
+    });
 });
+NProgress.done();
